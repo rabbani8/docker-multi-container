@@ -14,10 +14,10 @@ script:
 
 # after test suceess add prod version of docker & push then to docker hub ,default clint
 after_success:
-  - docker build -t rabbani8/docker-multi-client -f ./client/
-  - docker build -t rabbani8/docker-multi-server -f ./server/
-  - docker build -t rabbani8/docker-multi-nginx  -f ./nginx/
-  - docker build -t rabbani8/docker-multi-worker -f ./worker/
+  - docker build -t rabbani8/docker-multi-client ./client/
+  - docker build -t rabbani8/docker-multi-server ./server/
+  - docker build -t rabbani8/docker-multi-nginx  ./nginx/
+  - docker build -t rabbani8/docker-multi-worker ./worker/
   #login to docker cli 
   - echo  "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   #push to docker hub 
