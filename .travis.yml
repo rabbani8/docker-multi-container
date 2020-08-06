@@ -27,13 +27,12 @@ after_success:
   - docker push rabbani8/docker-multi-worker
 
 # ima genrate keys AKIAZH66PRAX6CWLXTNW
-
+#s3 bucket_name  check with region 
 deploy:
   provider: elasticbeanstalk
   region: ap-south-1
   app: docker-multi-container
   env: DockerMultiContainer-env
-  #s3 bucket  check with region 
   bucket_name: elasticbeanstalk-ap-south-1-635584874543
   bucket_path: docker-multi-container
   on:
