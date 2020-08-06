@@ -2,32 +2,22 @@ sudo: required
 services:
   - docker
 
-#used for test
-#Build test version of docker image
 before_install:
-  # location of file and where the build context where we need to build as image
   - docker build -t rabbani8/react-test -f ./client/Dockerfile.dev ./client
-#run test in test version of docker image 
 script:
-  # exit coverage by -- --coverage exit
   - docker run rabbani8/react-test npm test -- --coverage
 
-# after test suceess add prod version of docker & push then to docker hub ,default clint
 after_success:
   - docker build -t rabbani8/docker-multi-client ./client/
   - docker build -t rabbani8/docker-multi-server ./server/
   - docker build -t rabbani8/docker-multi-nginx  ./nginx/
   - docker build -t rabbani8/docker-multi-worker ./worker/
-  #login to docker cli 
   - echo  "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  #push to docker hub 
   - docker push rabbani8/docker-multi-client
   - docker push rabbani8/docker-multi-server
   - docker push rabbani8/docker-multi-nginx
   - docker push rabbani8/docker-multi-worker
 
-# ima genrate keys AKIAZH66PRAX6CWLXTNW
-#s3 bucket_name  check with region 
 deploy:
   provider: elasticbeanstalk
   region: ap-south-1
