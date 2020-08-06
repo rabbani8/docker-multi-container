@@ -5,7 +5,8 @@ services:
 #used for test
 #Build test version of docker image
 before_install:
-  - docker build -t rabbani8/react-test -f ./client/Dockerfile.dev
+  # location of file and where the build context where we need to build as image
+  - docker build -t rabbani8/react-test -f ./client/Dockerfile.dev ./client
 #run test in test version of docker image 
 script:
   # exit coverage by -- --coverage exit
